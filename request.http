@@ -1,0 +1,10 @@
+### signu user
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "signu@gamil.com",
+    "password": "aaa",
+    "age":23
+}
