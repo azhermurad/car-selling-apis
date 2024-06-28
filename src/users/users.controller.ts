@@ -1,24 +1,31 @@
-import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
-import { AppService } from 'src/app.service';
-
-@Controller('users')
+import { UsersService } from './users.service';
+import { Response } from 'express';
+@Controller('auth')
 export class UsersController {
-  // login user
-  //   now we have to validata the incoming data to this router
-  // email and password
-  @Post()
-  @UsePipes(new ValidationPipe({ transform: true }))
-  signUp(@Body() authDto: AuthDto) {
-    console.log(authDto)
-    return 'user is created in database';
+  constructor(private readonly UsersService: UsersService) {}
+
+  @Post('/signup')
+  createUser(@Body() body: AuthDto, @Res() res: Response) {
+    this.UsersService.createUser(body, res);
   }
-  @Post()
-  loginUser() {
-    return 'user is login';
+  // GET SINGAL USER BY ID
+  @Get('/:id')
+  getUserById(@Param('id') id: number, @Res() res: Response) {
+    this.UsersService.getUserByID(id, res);
   }
 }
 
-// we have to create two routes for handling user
-// 1. login user
-// 2. register user
+// get /auth?email=abc@gmail.com getUserByemail
+// patch /auth/:id updat user
+// delete /auth/:id delte user by id
+// post /auth/login login user by email and password

@@ -1,0 +1,12 @@
+### signu user
+
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "signu@amil.com",
+    "password": "azher"
+}
+
+### Get single user by id
+GET http://localhost:3000/auth/aa
