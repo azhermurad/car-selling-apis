@@ -1,28 +1,44 @@
 ### signu user
 
-POST http://localhost:3000/auth/signup
+POST http://localhost:3000/user/signup
 Content-Type: application/json
 
 {
-    "email": "sign1u@amil.com",
+    "email": "aasign1u@ami1l.com",
+    "password": "azhera"
+}
+
+### 
+POST http://localhost:3000/user/signin
+Content-Type: application/json
+
+{
+    "email": "aasign1u@ami1l.com",
     "password": "azhera"
 }
 
 ### Get single user by id
-GET http://localhost:3000/auth/12
+GET http://localhost:3000/auth/1
 
 ### Get All user by email
-GET http://localhost:3000/auth?email=sign1u@amil.com&password=azhera
+GET http://localhost:3000/user?email=sign1u@amil.com
 
 ### udpate user by id
-PATCH http://localhost:3000/auth/111
+PATCH http://localhost:3000/auth/1
 Content-Type: application/json
 
 {
-    "email": "azhera@gmail.com",
-    "password": "azherwa3"
+     "email": "azhera@gmaial.com"
 }
 
 ### Delete user by id
 DELETE http://localhost:3000/auth/11
 
+
+
+### get current login user
+GET http://localhost:3000/user/current-user
+
+
+###LOGOUT USER
+POST http://localhost:3000/user/logout
