@@ -10,6 +10,7 @@ import {
   Query,
   Res,
   Session,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { UsersService } from './users.service';
@@ -18,8 +19,11 @@ import { UpdateDto } from './dto/update.dto';
 import { Serializer } from 'src/interceptors/Serializer.interceptor';
 import { UserDto } from './dto/userr.dto';
 import { AuthService } from './auth.service';
+import { CurrentUser } from './decorators/user.decorator';
+import { AuthGuard } from 'src/gards/auth.guard';
 
 @Controller('user')
+// @UseInterceptors(CurrentUserInterceptor)
 @Serializer(UserDto)
 export class UsersController {
   constructor(
@@ -42,14 +46,15 @@ export class UsersController {
   }
 
   @Get('/current-user')
-  getsess(@Session() session: any) {
-    console.log(session);
-    return session.userId;
+  @UseGuards(AuthGuard)
+  // @Roles(['admin'])
+  getsess(@CurrentUser() user: AuthDto) {
+    return user
   }
 
   @Post('/logout')
   logoutUser(@Session() session: any) {
-    delete session.userId
+    delete session.userId;
   }
 
   // GET SINGAL USER BY ID
@@ -81,9 +86,6 @@ export class UsersController {
   deleteUser(@Param('id') id: number, @Res() res: Response) {
     this.UsersService.deleteUserById(id, res);
   }
-  // we have to implment cookie-session in nest js
- 
- 
 }
 
 // get /auth/id get single user
