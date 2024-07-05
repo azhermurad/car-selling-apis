@@ -9,23 +9,21 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  
   ) {}
 
   async createUser({ email, password }: { email: string; password: string }) {
-    console.log("user create method in user service")
+    console.log('user create method in user service');
     const user = this.usersRepository.create({ email, password });
     await this.usersRepository.save(user);
     return user;
   }
 
-  async getUserByID(id: any) {
+  async getUserByID(id: number): Promise<User | null> {
     const user = await this.usersRepository.findOne({
       where: {
         id,
       },
     });
-    // res.status(200).json(user);
     return user;
   }
 
@@ -51,5 +49,3 @@ export class UsersService {
     res.status(200).json(user);
   }
 }
-
-

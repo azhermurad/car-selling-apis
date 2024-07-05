@@ -10,7 +10,7 @@ export class AuthService {
     // check user is exist in database
     const isUserExit = await this.userService.getUsersByEmail(body.email);
     if (isUserExit.length > 0) {
-      throw new BadRequestException('Email Already Exit');
+      throw new BadRequestException('Email Already Exists');
     }
     // hash password before save
     const hashPassword = await bcrypt.hash(body.password, 10);

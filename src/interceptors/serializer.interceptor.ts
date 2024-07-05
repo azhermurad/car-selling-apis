@@ -2,6 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import {
   CallHandler,
   ExecutionContext,
+  Injectable,
   NestInterceptor,
   UseInterceptors,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ export const Serializer = function (UserDto: any) {
   return UseInterceptors(new SerializerInterceptor(UserDto));
 };
 
+@Injectable()
 export class SerializerInterceptor implements NestInterceptor {
   constructor(private dataDto: any) {}
 

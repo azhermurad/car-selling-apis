@@ -16,18 +16,19 @@ import { AuthDto } from './dto/auth.dto';
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import { UpdateDto } from './dto/update.dto';
-import { Serializer } from 'src/interceptors/Serializer.interceptor';
 import { UserDto } from './dto/userr.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/user.decorator';
-import { AuthGuard } from 'src/gards/auth.guard';
+import { Serializer } from '../interceptors/serializer.interceptor';
+import { AuthGuard } from '../gards/auth.guard';
+import { User } from './user.entity';
 
 @Controller('user')
 // @UseInterceptors(CurrentUserInterceptor)
 @Serializer(UserDto)
 export class UsersController {
   constructor(
-    private readonly UsersService: UsersService,
+    private  UsersService: UsersService,
     private authService: AuthService,
   ) {}
 
@@ -48,7 +49,7 @@ export class UsersController {
   @Get('/current-user')
   @UseGuards(AuthGuard)
   // @Roles(['admin'])
-  getsess(@CurrentUser() user: AuthDto) {
+  getCurrenUser(@CurrentUser() user: User) {
     return user
   }
 
@@ -60,11 +61,12 @@ export class UsersController {
   // GET SINGAL USER BY ID
   // @UseInterceptors(new SerializerInterceptor(UserDto))
   @Get('/:id')
-  async getUserById(@Param('id') id: number, res: Response) {
-    if (!(await this.UsersService.getUserByID(id))) {
+  async getUserById(@Param('id') id: number) {
+    const user = await this.UsersService.getUserByID(id)
+    if (!user) {
       throw new NotFoundException('not found ');
     }
-    return this.UsersService.getUserByID(id);
+    return user;
   }
   // GET All Users
   @Get()
@@ -93,3 +95,6 @@ export class UsersController {
 // patch /auth/:id updat user
 // delete /auth/:id delte user by id
 // post /auth/login login user by email and password
+
+
+
