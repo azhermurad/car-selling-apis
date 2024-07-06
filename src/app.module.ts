@@ -14,14 +14,23 @@ import { Report } from './reports/report.entity';
 import { TestMiddleware } from './middleware/test.middleware';
 import cookieSession from 'cookie-session';
 import { APP_PIPE } from '@nestjs/core';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sqlite',
-      entities: [User, Report],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'sqlite',
+        database: configService.get<string>('DATABASE_NAME'),
+        entities: [User, Report],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
     }),
     UsersModule,
     ReportsModule,
@@ -41,4 +50,5 @@ export class AppModule implements NestModule {
       .apply(cookieSession({ keys: ['aadfdgsas'] }), TestMiddleware)
       .forRoutes('*');
   }
+  // we only do this beacuse of e2e testing
 }
