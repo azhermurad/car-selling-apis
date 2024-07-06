@@ -17,8 +17,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       provide: APP_INTERCEPTOR,
       useClass: CurrentUserInterceptor,
     },
-
     // this is used when you want to set the interceptor golobally and it have dependence injection
-  ],
+  ]
 })
 export class UsersModule {}
