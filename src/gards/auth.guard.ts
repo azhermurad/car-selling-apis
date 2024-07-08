@@ -13,3 +13,10 @@ export class AuthGuard implements CanActivate {
     return request.session.userId;
   }
 }
+
+
+
+// data flow 
+// middleware will run 
+// guards will run 
+// interceprors and pipe are run 

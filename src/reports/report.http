@@ -1,0 +1,19 @@
+
+
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+    "price":1234,
+    "make":"google",
+    "model":"corola",
+    "year":2020,
+    "mileage":200,
+    "lng":-77.03645,
+    "lat":38.8951
+    
+}
+
+### Get Reports
+
+GET  http://localhost:3000/reports

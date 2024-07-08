@@ -29,7 +29,11 @@ export class UsersService {
 
   // GET all USERS USING EMAIL
   async getUsersByEmail(email: string): Promise<User[] | null> {
-    const user = await this.usersRepository.findBy({ email });
+    const user = await this.usersRepository.find({
+      
+      where: { email },
+      relations: { reports: true, },
+    });
     return user;
   }
 
