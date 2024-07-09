@@ -40,7 +40,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     AppService,
     {
       provide: APP_PIPE,
-      useValue: new ValidationPipe({ whitelist: true }),
+      useValue: new ValidationPipe({ whitelist: true,transform:true }),
     },
   ],
 })

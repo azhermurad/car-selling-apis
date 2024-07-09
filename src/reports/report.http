@@ -17,3 +17,15 @@ Content-Type: application/json
 ### Get Reports
 
 GET  http://localhost:3000/reports
+
+
+### update report
+
+PATCH  http://localhost:3000/reports/2
+Content-Type: application/json
+
+{
+    "isPublish":true
+}
+
+

@@ -1,6 +1,6 @@
 // now have to wirte the dto for make the report
 
-import { Expose, Type } from 'class-transformer';
+import { Expose, Type, Transform } from 'class-transformer';
 import { UserDto } from 'src/users/dto/userr.dto';
 
 export class ReportDto {
@@ -10,7 +10,6 @@ export class ReportDto {
   make: string;
   @Expose()
   model: string;
-
   @Expose()
   year: number;
   @Expose()
@@ -19,12 +18,14 @@ export class ReportDto {
   lng: number;
   @Expose()
   lat: number;
+  @Expose()
+  isPublish: boolean;
+
+  @Transform(({ obj }) => (obj?.user ? obj.user.id : null))
+  @Expose()
+  userId: any;
 
   @Expose()
   @Type(() => UserDto)
   user: UserDto;
 }
-
-
-
-

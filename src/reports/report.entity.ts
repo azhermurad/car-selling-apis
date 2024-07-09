@@ -2,7 +2,6 @@ import { User } from 'src/users/user.entity';
 import {
   BeforeInsert,
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -27,17 +26,15 @@ export class Report {
   lng: number;
   @Column()
   lat: number;
-  @ManyToOne(()=>User,(user)=>user.reports)
-  user:User
 
+  @Column({ default: false })
+  isPublish: boolean;
 
+  @ManyToOne(() => User, (user) => user.reports)
+  user: User;
 
   @BeforeInsert()
   ruunnBefore() {
     this.make = this.make + '1';
   }
 }
-
-
-
-
