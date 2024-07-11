@@ -14,6 +14,10 @@ export class ReportsService {
   ) {}
   // GET ALL REPOSE
   async getAllReports() {
+    // SELECT * FROM REPORT 
+    // const a= await this.reportRepo.createQueryBuilder("report").where('report.id between 1 and 10').getMany()
+    const a =await this.reportRepo.createQueryBuilder().select("*").where("id between :id And 9",{id:2}).getRawMany()
+
     return await this.reportRepo.find({ relations: { user: true } });
   }
 
@@ -39,3 +43,26 @@ export class ReportsService {
 }
 
 // nowe we have to make the report unApprovid
+
+
+// what is the system design ?
+
+
+
+
+// SELECT * FROM REPOTT  WHERE ID=1;
+// UPDATE REPORT SET IS_PUBLISH=1 WHERE ID=1;
+// SELECT * FROM REPORT WHERE ID=1;
+// 
+// SELECT * FROM REPORT WHERE ID=1;
+
+// SELECT COUNT 
+
+// where used with
+// equal
+// not equal
+// greater 
+// less
+// between
+// and or etc
+//

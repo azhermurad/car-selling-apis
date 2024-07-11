@@ -1,3 +1,5 @@
+
+
 import { User } from 'src/users/user.entity';
 import {
   BeforeInsert,
@@ -26,6 +28,10 @@ export class Report {
   lng: number;
   @Column()
   lat: number;
+  @Column({default:0})
+  mige: number;
+
+ 
 
   @Column({ default: false })
   isPublish: boolean;

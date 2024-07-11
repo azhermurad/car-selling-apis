@@ -16,13 +16,16 @@ import { User } from 'src/users/user.entity';
 import { Serializer } from 'src/interceptors/serializer.interceptor';
 import { ReportDto } from './dtos/report.dto';
 import { ApproveReportDto } from './dtos/approvide-report-dto';
+import { AdminGuard } from 'src/gards/admin.guard';
+
 
 @Controller('reports')
 @Serializer(ReportDto)
 export class ReportsController {
   constructor(private reportService: ReportsService) {}
   @Get()
-  async getAllReports() {
+  
+  async getAllReports()  {
     // throw new NotFoundException("not found report")
     return await this.reportService.getAllReports();
   }
@@ -36,6 +39,7 @@ export class ReportsController {
   }
 
   @Patch('/:id')
+  @UseGuards(AdminGuard)
   async updateReport(@Param('id') id: number, @Body() body: ApproveReportDto) {
     console.log(typeof id);
     return await this.reportService.updateReport(id,body.isPublish);

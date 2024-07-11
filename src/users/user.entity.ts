@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Report } from 'src/reports/report.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 @Injectable()
@@ -14,7 +14,10 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(()=>Report,(report)=>report.user)
+  @Column({default:true})
+  isAdmin: boolean;
+
+  @OneToMany(() => Report, (report) => report.user)
   reports: Report[];
 
   // hooks in typeORM
