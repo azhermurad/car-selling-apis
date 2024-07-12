@@ -1,8 +1,8 @@
 // now have to wirte the dto for make the report
 
 import { Expose, Type, Transform } from 'class-transformer';
-import { UserDto } from 'src/users/dto/userr.dto';
-
+import { UserDto } from '../../users/dto/userr.dto';
+UserDto
 export class ReportDto {
   @Expose()
   price: number;

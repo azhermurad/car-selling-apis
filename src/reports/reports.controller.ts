@@ -8,15 +8,15 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CreateReportDto } from './dtos/create-report.dto';
 import { ReportsService } from './reports.service';
-import { AuthGuard } from 'src/gards/auth.guard';
-import { CurrentUser } from 'src/users/decorators/user.decorator';
-import { User } from 'src/users/user.entity';
-import { Serializer } from 'src/interceptors/serializer.interceptor';
 import { ReportDto } from './dtos/report.dto';
+import { AdminGuard } from '../gards/admin.guard';
 import { ApproveReportDto } from './dtos/approvide-report-dto';
-import { AdminGuard } from 'src/gards/admin.guard';
+import { User } from '../users/user.entity';
+import { AuthGuard } from '../gards/auth.guard';
+import { CreateReportDto } from './dtos/create-report.dto';
+import { CurrentUser } from '../users/decorators/user.decorator';
+import { Serializer } from '../interceptors/serializer.interceptor';
 
 
 @Controller('reports')

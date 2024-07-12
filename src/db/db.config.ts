@@ -1,25 +1,24 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from './src/users/user.entity';
-
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { Report } from './src/reports/report.entity';
 
 ConfigModule.forRoot({
   envFilePath: `.env.${process.env.NODE_ENV}`,
 });
-
 const configService = new ConfigService();
 
+// PERFECT JOB DONE
 console.log(
   process.env.NODE_ENV,
-  'testingggggggggggggggggggggggggggggggggggggg',
+  __dirname,
   configService.get<string>('DATABASE_NAME'),
+  configService.get<string>('NODE_ENV'),
+
 );
 
 export const dataSourceOptions: Partial<DataSourceOptions> = {
-  entities: ["dist/**/*.entity.js"],
+  entities: [__dirname + '/../**/*.entity.{js,ts}'],
   synchronize: false,
-  migrations: ['dist/db/*.js'],
+  migrations: ['dist/migration/*.js'],
 };
 
 switch (process.env.NODE_ENV) {
@@ -34,10 +33,17 @@ switch (process.env.NODE_ENV) {
     Object.assign(dataSourceOptions, {
       type: 'sqlite',
       database: 'test.sqlite',
-      synchronize: true,
+      migrationsRun: true,
+      // synchronize:true
     } as DataSourceOptions);
     break;
   case 'production':
+    Object.assign(dataSourceOptions, {
+      type: 'sqlite',
+      database: 'production.sqlite',
+      migrationsRun: true,
+      // synchronize:true
+    } as DataSourceOptions);
     break;
   default:
     throw new Error('unknown environment');
@@ -45,8 +51,6 @@ switch (process.env.NODE_ENV) {
 
 const dataSource = new DataSource(dataSourceOptions as DataSourceOptions);
 export default dataSource;
-
-
 
 //
 

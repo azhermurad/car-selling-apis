@@ -1,6 +1,7 @@
 
 
-import { User } from 'src/users/user.entity';
+
+
 import {
   BeforeInsert,
   Column,
@@ -8,6 +9,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { User } from '../users/user.entity';
 
 @Entity()
 export class Report {

@@ -5,16 +5,17 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.entity';
-import { Report } from './reports/report.entity';
 import cookieSession from 'cookie-session';
 import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AppService } from './app.service';
 import { CurrentUserMiddleware } from './middleware/current-user.middleware';
+import {dataSourceOptions} from './db/db.config';
+
+
 // import { dataSourceOptions } from 'orm';
 
 @Module({
@@ -34,12 +35,7 @@ import { CurrentUserMiddleware } from './middleware/current-user.middleware';
     //   inject: [ConfigService],
     // }),
 
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database:"a.sqlite",
-      entities: [User, Report],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     UsersModule,
     ReportsModule,
   ],

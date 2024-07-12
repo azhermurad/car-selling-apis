@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { ReportsService } from 'src/reports/reports.service';
-import { UsersService } from 'src/users/users.service';
+import { ReportsService } from '../reports/reports.service';
+
 
 @Injectable()
 export class TestMiddleware implements NestMiddleware {

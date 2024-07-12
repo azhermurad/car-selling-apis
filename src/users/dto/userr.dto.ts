@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { ReportDto } from 'src/reports/dtos/report.dto';
+import { ReportDto } from '../../reports/dtos/report.dto';
 
 export class UserDto {
   @Expose() id: number;

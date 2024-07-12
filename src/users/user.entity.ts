@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Report } from 'src/reports/report.entity';
 
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Report } from '../reports/report.entity';
 
 @Entity()
 @Injectable()

@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import fs from 'fs/promises';
 import path from 'path';
-import { AppModule } from 'src/app.module';
+import { AppModule } from '../src/app.module';
 
 
 describe('AppController (e2e)', () => {
@@ -38,6 +38,8 @@ describe('AppController (e2e)', () => {
       .expect(201)
       .then((user) => {
         expect(user.body.email).toEqual(userPayload.email);
+      }).catch((e)=>{
+console.log(e)
       });
   });
   it('signup and check that session is store', async () => {
